@@ -1,0 +1,77 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="AprendeCoreano.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Aprende Coreano</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body style="background: url('Images/Seoul_at_Dusk.jpg') no-repeat center center fixed; background-size: cover;">
+    <form runat="server" style="max-height: 100%; max-width: 100%;">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Path="~/Scripts/jquery-1.10.2.min.js" />
+            </Scripts>
+        </asp:ScriptManager>
+        <div style="width: 75%; margin: 0 auto; top: 0px;">
+            <img src="Images/Header.jpg" alt="header" style="max-height: 100%; width: 100%"/>
+        </div>
+        <div class="navbar navbar-inverse" style="width: 75%; margin: 0 auto;">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" runat="server" href="~/">Aprende Coreano</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a runat="server" href="~/">Inicio</a></li>
+                        <li><a runat="server" href="~/Lessons">Lecciones</a></li>
+                        <li><a runat="server" href="~/Exercises">Ejercicios</a></li>
+                        <li><a runat="server" href="~/Contact">Contacto</a></li>                        
+                    </ul>
+                    <asp:MultiView ID="EsLogin" runat="server">
+                        <asp:View ID="Anonymous" runat="server">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Register">Registrarse</a></li>
+                                <li><a runat="server" href="~/Account/Login">Iniciar sesión</a></li>
+                            </ul>
+                        </asp:View>
+                        <asp:View ID="LoggedIn" runat="server">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hola, <%: Session["usuarioLogado"].ToString()  %></a></li>
+                                <li>
+                                    <asp:button runat="server" ID="btnCerrarSesion" Text="Cerrar Sesión" OnClick="btnCerrarSesion_Click"
+                                                style="background-color:transparent; color:GrayText; height:50px; border:none" CausesValidation="False" />
+                                </li>
+                            </ul>
+                        </asp:View>
+                    </asp:MultiView>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content" style="width: 75%; margin: 0 auto; padding: 20px; background-color: whitesmoke;">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <p>&copy; <%: DateTime.Now.Year %> - Aprende Coreano</p>
+            </footer>
+        </div>
+    </form>
+</body>
+</html>
